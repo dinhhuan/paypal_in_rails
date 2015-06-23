@@ -1,0 +1,43 @@
+  [1m[36m (309.1ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (206.1ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateCourses (20140926190851)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "courses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "price" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (2.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20140926190851"]]
+  [1m[35m (221.2ms)[0m  commit transaction
+Migrating to CreateRegistrations (20140926191022)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  CREATE TABLE "registrations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "course_id" integer, "full_name" varchar(255), "company" varchar(255), "email" varchar(255), "telephone" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.3ms)[0m  [1mCREATE  INDEX "index_registrations_on_course_id" ON "registrations" ("course_id")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20140926191022"]]
+  [1m[36m (228.4ms)[0m  [1mcommit transaction[0m
+Migrating to AddParamsStatusTransactionIdPurchasedAtToRegistrations (20140928132405)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.6ms)[0m  [1mALTER TABLE "registrations" ADD "notification_params" text[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "registrations" ADD "status" varchar(255)
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "registrations" ADD "transaction_id" varchar(255)[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "registrations" ADD "purchased_at" datetime
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20140928132405"]]
+  [1m[35m (505.9ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_registrations_on_course_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_registrations_on_course_id' AND type='index'
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mSQL (216.5ms)[0m  DELETE FROM "courses"
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "courses" ("created_at", "name", "price", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", "2015-06-23 06:05:10.928461"], ["name", "INTRODUCTION TO REPOSTERY (4 Weeks)"], ["price", 475], ["updated_at", "2015-06-23 06:05:10.928461"]]
+  [1m[36m (208.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "courses" ("created_at", "name", "price", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", "2015-06-23 06:05:11.165531"], ["name", "THE BEST BUTCHERY COURSE (4 Weeks)"], ["price", 610], ["updated_at", "2015-06-23 06:05:11.165531"]]
+  [1m[35m (518.3ms)[0m  commit transaction
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "courses" ("created_at", "name", "price", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", "2015-06-23 06:05:11.686997"], ["name", "SEA FOOD SECRETS COURSE (8 Weeks)"], ["price", 1485], ["updated_at", "2015-06-23 06:05:11.686997"]]
+  [1m[36m (230.5ms)[0m  [1mcommit transaction[0m
