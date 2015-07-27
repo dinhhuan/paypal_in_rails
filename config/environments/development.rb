@@ -34,4 +34,12 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :test  # :production when you will use a real Pro Account
+    ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
+      login: "test01fram_api1.gmail.com",
+      password: "U8V7EW6ZNS2GBHB4",
+      signature: "An5ns1Kso7MWUdW4ErQKJJJ4qi4-AY1V1uHV2e-kd-k3QFSsJF4VQACE"
+    )
+  end
 end
