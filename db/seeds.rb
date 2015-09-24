@@ -9,3 +9,4 @@ Course.delete_all
 Course.create name: "INTRODUCTION TO REPOSTERY (4 Weeks)", price: 500
 Course.create name: "THE BEST BUTCHERY COURSE (4 Weeks)", price: 600
 Course.create name: "SEA FOOD SECRETS COURSE (8 Weeks)", price: 1500
+Course.create name: "TEST Recurring Payments", price: 500, recurring:true, period: "Month",cycles: 12
